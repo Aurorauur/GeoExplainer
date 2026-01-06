@@ -1,0 +1,54 @@
+#weights
+#ntu60
+# weights: ./models/st_gcn.ntu-xview-p.pt
+# weights: ./models/st_gcn.ntu-xview-3.pt
+# #ntu120
+# weights: ./models/st_gcn.ntu120-xview-p.pt
+#ntu120all
+weights: ./models/st_gcn.ntu120all-csetup-p.pt
+                     
+# feeder
+feeder: feeder.feeder.Feeder
+
+#ntu60
+# test_feeder_args:
+#   #org in_channels: 3
+#   data_path: ./data/NTU-RGB-D/xview-3/val_data.npy
+#   label_path: ./data/NTU-RGB-D/xview-3/val_label.pkl
+  #screw in_channels: 6
+  # data_path: ./data/NTU-RGB-D/xview-p/val_data.npy
+  # label_path: ./data/NTU-RGB-D/xview-p/val_label.pkl
+
+# # ntu120 plucker
+# test_feeder_args:
+#   data_path: ./data/NTU-RGB-D/xview120-p/val_data.npy
+#   label_path: ./data/NTU-RGB-D/xview120-p/val_label.pkl
+# ntu120all plucker
+test_feeder_args:
+  data_path: ./data/NTU120all/csetup/val_screwdata.npy
+  label_path: ./data/NTU120all/csetup/val_screwlabel.pkl
+
+# model
+model: net.st_gcn.Model
+model_args:
+  # in_channels: 3
+  in_channels: 6
+
+#ntu60
+  # num_class: 60 
+#ntu120
+  num_class: 120 
+
+  dropout: 0.5
+  edge_importance_weighting: True
+  graph_args:                                                                                     
+    layout: 'ntu-rgb+d'
+    strategy: 'spatial'
+              
+# test 
+phase: test
+device: 0
+#device: [0,1,2,3,4,5]
+test_batch_size: 64
+
+ 

@@ -1,0 +1,55 @@
+work_dir: ./work_dir/recognition/ntu120all-csub-3/ST_GCN
+
+# feeder
+#feeder: feeder.feeder.Feeder
+#train_feeder_args:
+#  data_path: ./data/NTU-RGB-D/xsub-p/train_data.npy
+#  label_path: ./data/NTU-RGB-D/xsub-p/train_label.pkl
+#test_feeder_args:
+#  data_path: ./data/NTU-RGB-D/xsub-p/val_data.npy
+#  label_path: ./data/NTU-RGB-D/xsub-p/val_label.pkl
+
+# ntu120 plucker
+feeder: feeder.feeder.Feeder
+# train_feeder_args:
+#   data_path: ./data/NTU-RGB-D/xsub120-p/train_data.npy
+#   label_path: ./data/NTU-RGB-D/xsub120-p/train_label.pkl
+# test_feeder_args:
+#   data_path: ./data/NTU-RGB-D/xsub120-p/val_data.npy
+#   label_path: ./data/NTU-RGB-D/xsub120-p/val_label.pkl
+train_feeder_args:
+  data_path: ./data/NTU120all_org/csub/train_data.npy
+  label_path: ./data/NTU120all_org/csub/train_label.pkl
+test_feeder_args:
+  data_path: ./data/NTU120all_org/csub/val_data.npy
+  label_path: ./data/NTU120all_org/csub/val_label.pkl
+
+
+# model
+model: net.st_gcn.Model
+model_args:
+  in_channels: 3
+  #num_class: 60
+  num_class: 120
+  dropout: 0.5
+  edge_importance_weighting: True
+  graph_args:
+    layout: 'ntu-rgb+d'
+    strategy: 'spatial'
+
+#optim
+weight_decay: 0.0001
+base_lr: 0.1
+step: [10, 50]
+
+# training
+#device: [0,1,2,3]
+# device: [6,7]
+device: [4]
+batch_size: 32 
+test_batch_size: 32
+num_epoch: 80
+# num_epoch: 200
+
+
+
